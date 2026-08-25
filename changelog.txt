@@ -1,2 +1,131 @@
-Version 2.0.1
-- Correcciones de actualizacion
+═══════════════════════════════════════════════════════════════
+📋 LATIENDITAPOS - REGISTRO DE CAMBIOS (CHANGELOG)
+═══════════════════════════════════════════════════════════════
+
+📌 VERSIÓN 2.0.1.1 (2026-08-23)
+───────────────────────────────────────────────────────────────
+✅ NUEVAS FUNCIONALIDADES
+───────────────────────────────────────────────────────────────
+
+• Sistema de permisos por roles completo
+  - 7 roles disponibles: SUPERADMIN, ADMIN, GERENTE, SUPERVISOR,
+    VENDEDOR, DEMO, ALMACENISTA
+  - Control granular por módulo y acción (Ver, Crear, Editar, Eliminar)
+  - Validación en tiempo real desde PermisosService
+
+• Rol DEMO optimizado
+  - Acceso limitado a: Dashboard, Punto de Venta, Productos (consulta),
+    Pantalla Cliente, Imprimir Ticket
+  - Bloqueo automático de: Usuarios, Configuración, Etiquetas,
+    Impresión Masiva, Reportes, Cortes, Compras
+
+• Sistema de licencias mejorado
+  - Licencia DEMO con 30 días exactos al activar
+  - Importación de licencias mediante archivo .lic
+  - Validación de firma digital para seguridad
+  - Visualización de información de licencia en "Acerca de"
+
+• Control de inventario global
+  - Activación/desactivación desde Configuración
+  - Control por categoría, marca y proveedor
+
+• Módulo de etiquetas mejorado
+  - Diseñador de etiquetas personalizado
+  - Soporte para múltiples tipos de código de barras
+  - Impresión masiva de etiquetas
+
+• Cambios de precio en lote
+  - Vista previa de cambios pendientes
+  - Banner de alerta en el menú principal
+  - Aplicación masiva de cambios
+
+───────────────────────────────────────────────────────────────
+🔧 MEJORAS Y OPTIMIZACIONES
+───────────────────────────────────────────────────────────────
+
+• Autenticación de usuarios optimizada
+  - Hash de contraseñas unificado (C# ↔ SQLite)
+  - Mayor seguridad en el proceso de login
+  - Captura de hardware ID para licencias
+
+• Sistema de pedido sugerido mejorado
+  - Metas manuales de venta por producto
+  - Cálculo de tendencia y proyección de demanda
+
+• Dashboard mejorado
+  - Indicadores KPI en tiempo real
+  - Gráficos de ventas por hora y categoría
+  - Top 5 productos más vendidos
+
+• Interfaz de usuario mejorada
+  - Tema de colores personalizable
+  - Fondo de pantalla configurable
+  - Logo de empresa dinámico
+  - Mejor experiencia de usuario
+
+• Sistema de configuración centralizado
+  - Configuración de impresora de tickets
+  - Configuración de impresora de etiquetas
+  - Configuración de Mercado Pago (Access Token, Terminal ID)
+  - Configuración de escáner serial
+
+───────────────────────────────────────────────────────────────
+🐛 CORRECCIONES DE ERRORES
+───────────────────────────────────────────────────────────────
+
+• Corregido error en login con hash de contraseñas
+• Corregido error al cambiar nombre de la empresa
+• Corregido error en cierre de turno
+• Corregido error en importación de inventario
+• Corregido error en exportación de reportes
+• Corregido error en diseño de etiquetas
+• Corregido error de permisos en formularios (FrmUsuarios, FrmConfiguracion,
+  FrmImprimirEtiqueta, FrmImpresionMasiva)
+
+───────────────────────────────────────────────────────────────
+📦 ACTUALIZACIONES TÉCNICAS
+───────────────────────────────────────────────────────────────
+
+• Motor de base de datos: SQLite (embebido)
+• Plataforma de compilación optimizada (x86/x64)
+• Actualización de paquetes NuGet
+• Mejoras en rendimiento y estabilidad
+• Sistema de logs mejorado
+• Backup automático y manual
+
+───────────────────────────────────────────────────────────────
+📋 NOTAS DE INSTALACIÓN
+───────────────────────────────────────────────────────────────
+
+• ✅ NO requiere SQL Server, MySQL u otro motor de BD
+• ✅ La base de datos SQLite se crea automáticamente
+• ✅ Compatible con Windows 10 y Windows 11 (64 bits)
+• ✅ Requiere .NET Framework 4.8 o superior
+
+───────────────────────────────────────────────────────────────
+🔑 CREDENCIALES POR DEFECTO
+───────────────────────────────────────────────────────────────
+
+   👤 Usuario: admin
+   🔑 Contraseña: admin123
+
+───────────────────────────────────────────────────────────────
+🔄 PRÓXIMAS VERSIONES
+───────────────────────────────────────────────────────────────
+
+• Módulo de compras con proveedores
+• Reportes avanzados de ventas
+• Integración con facturación CFDI
+• App móvil para consulta de inventario
+• Sincronización con tienda en línea
+
+───────────────────────────────────────────────────────────────
+📞 SOPORTE TÉCNICO
+───────────────────────────────────────────────────────────────
+
+   📧 Correo: soporte@latienditapos.com
+   🌐 Sitio web: www.latienditapos.com
+
+═══════════════════════════════════════════════════════════════
+              © 2026 - LaTienditaPOS - Todos los derechos reservados
+═══════════════════════════════════════════════════════════════
