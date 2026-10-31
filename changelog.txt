@@ -2,75 +2,96 @@
 📋 LATIENDITAPOS - REGISTRO DE CAMBIOS (CHANGELOG)
 ═══════════════════════════════════════════════════════════════
 
-📌 VERSIÓN 1.0.0.1 (2026-10-21)
+📌 VERSIÓN 1.0.0.0 (2026-10-30)
 ───────────────────────────────────────────────────────────────
 ✅ NUEVAS FUNCIONALIDADES
 ───────────────────────────────────────────────────────────────
 
-• Sistema de permisos por roles completo
-  - 7 roles disponibles: SUPERADMIN, ADMIN, GERENTE, SUPERVISOR,
-    VENDEDOR, DEMO, ALMACENISTA
-  - Control granular por módulo y acción (Ver, Crear, Editar, Eliminar)
-  - Validación en tiempo real desde PermisosService
+• Arquitectura multicaja y multisucursal
+  - Cada caja se registra automáticamente la primera vez que se conecta
+  - Folios independientes por sucursal y caja
+  - Turnos de caja por sucursal
 
-• Rol DEMO optimizado
-  - Acceso limitado a: Dashboard, Punto de Venta, Productos (consulta),
-    Pantalla Cliente, Imprimir Ticket
-  - Bloqueo automático de: Usuarios, Configuración, Etiquetas,
-    Impresión Masiva, Reportes, Cortes, Compras
+• Punto de Venta móvil (PWA)
+  - Instalable en Android e iPhone
+  - Funciona offline con IndexedDB
+  - Catálogo local sincronizado desde la nube
+  - Búsqueda de productos por nombre o código de barras
+  - Pantalla de catálogo-venta con búsqueda en vivo
+  - Carrito de venta y cobro con múltiples métodos de pago
+  - Checador de precios con escáner de cámara
+  - Sincronización automática de catálogo (al abrir, al recuperar
+    conexión y cada 60 minutos)
+  - Aislamiento de catálogo local por negocio
+  - Ventas pendientes aisladas por negocio
 
-• Sistema de licencias mejorado
-  - Licencia DEMO con 30 días exactos al activar
+• Cola de tareas POS ↔ Nube
+  - El móvil encola ventas que el POS aplica automáticamente
+  - Confirmación y reporte de errores por tarea
+  - Reintentos automáticos
+  - Aplicación de ventas remotas en una sola transacción
+
+• Sincronización automática de catálogo
+  - El POS sube el catálogo completo a la nube tras cambios
+  - Modo full: borra huérfanos y deja solo lo actual
+  - La PWA lo descarga automáticamente
+  - Filtro de secretos en configuración antes de subir
+
+• Sistema de licencias con firma digital RSA
   - Importación de licencias mediante archivo .lic
-  - Validación de firma digital para seguridad
-  - Visualización de información de licencia en "Acerca de"
+  - Vinculación por hardware ID
+  - Tipos de licencia: LOCAL, FULL, ENTERPRISE, DEMO
+  - Validación de firma criptográfica
 
-• Control de inventario global
-  - Activación/desactivación desde Configuración
-  - Control por categoría, marca y proveedor
+• Sincronización de ventas con origen
+  - Cada venta se marca con origen: POS o MOVIL
+  - Distinción clara en reportes y consultas
 
-• Módulo de etiquetas mejorado
-  - Diseñador de etiquetas personalizado
-  - Soporte para múltiples tipos de código de barras
-  - Impresión masiva de etiquetas
-
-• Cambios de precio en lote
-  - Vista previa de cambios pendientes
-  - Banner de alerta en el menú principal
-  - Aplicación masiva de cambios
+• Sincronización de productos
+  - Envío automático de productos nuevos y modificados
+  - Registro en bitácora de sincronización
 
 ───────────────────────────────────────────────────────────────
 🔧 MEJORAS Y OPTIMIZACIONES
 ───────────────────────────────────────────────────────────────
 
-• Autenticación de usuarios optimizada
-  - Hash de contraseñas unificado (C# ↔ SQLite)
-  - Mayor seguridad en el proceso de login
-  - Captura de hardware ID para licencias
+• Motor de base de datos migrado a MariaDB
+  - Mejor rendimiento en multicaja
+  - Soporte para conexiones concurrentes
+  - Respaldo y restauración mejorados
 
-• Sistema de pedido sugerido mejorado
-  - Metas manuales de venta por producto
-  - Cálculo de tendencia y proyección de demanda
+• Sistema de permisos por roles
+  - 7 roles: SUPERADMIN, ADMIN, GERENTE, SUPERVISOR,
+    VENDEDOR, DEMO, ALMACENISTA
+  - Control granular por módulo y acción
+
+• Rol DEMO optimizado
+  - Acceso limitado a módulos esenciales
+  - Bloqueo automático de funciones administrativas
 
 • Dashboard mejorado
   - Indicadores KPI en tiempo real
   - Gráficos de ventas por hora y categoría
-  - Top 5 productos más vendidos
+  - Top de productos más vendidos
 
-• Interfaz de usuario mejorada
+• Control de inventario global
+  - Activación/desactivación desde configuración
+  - Control por categoría, marca y proveedor
+
+• Módulo de etiquetas mejorado
+  - Diseñador personalizado
+  - Soporte para múltiples tipos de código de barras
+  - Impresión masiva
+
+• Cambios de precio en lote
+  - Vista previa de cambios pendientes
+  - Banner de alerta en menú principal
+
+• Interfaz de usuario
   - Tema de colores personalizable
-  - Fondo de pantalla configurable
   - Logo de empresa dinámico
-  - Mejor experiencia de usuario
-  - Mejora en el sistema de cobro con botones 
-  - Mejor manejo con teclas F
-  - Mejoro el flujo de cobro
-
-• Sistema de configuración centralizado
-  - Configuración de impresora de tickets
-  - Configuración de impresora de etiquetas
-  - Configuración de Mercado Pago (Access Token, Terminal ID)
-  - Configuración de escáner serial
+  - Flujo de cobro optimizado
+  - Manejo mejorado con teclas de función
 
 ───────────────────────────────────────────────────────────────
 🐛 CORRECCIONES DE ERRORES
@@ -82,17 +103,22 @@
 • Corregido error en importación de inventario
 • Corregido error en exportación de reportes
 • Corregido error en diseño de etiquetas
-• Corregido error de permisos en formularios (FrmUsuarios, FrmConfiguracion,
-  FrmImprimirEtiqueta, FrmImpresionMasiva)
+• Corregido error de permisos en formularios administrativos
+• Corregido duplicado de productos en catálogo del móvil
+• Corregido mezcla de catálogo entre negocios en la PWA
+• Corregido bucle infinito al descargar catálogo en la PWA
+• Corregido bug de paginación delta en descarga de catálogo
 
 ───────────────────────────────────────────────────────────────
 📦 ACTUALIZACIONES TÉCNICAS
 ───────────────────────────────────────────────────────────────
 
-• Motor de base de datos: SQLite (embebido)
-• Plataforma de compilación optimizada (x86/x64)
-• Actualización de paquetes NuGet
-• Mejoras en rendimiento y estabilidad
+• Motor de base de datos: MariaDB
+• Plataforma: Windows 10 y Windows 11 (64 bits)
+• Requiere .NET Framework 4.8 o superior
+• Servidor de base de datos dedicado en tienda
+• Cliente POS conectado por red local
+• API en la nube para sincronización
 • Sistema de logs mejorado
 • Backup automático y manual
 
@@ -100,34 +126,22 @@
 📋 NOTAS DE INSTALACIÓN
 ───────────────────────────────────────────────────────────────
 
-• ✅ NO requiere SQL Server, MySQL u otro motor de BD
-• ✅ La base de datos SQLite se crea automáticamente
-• ✅ Compatible con Windows 10 y Windows 11 (64 bits)
+• ✅ Requiere MariaDB instalado en el servidor de tienda
+• ✅ La base de datos se crea con el script de instalación
+• ✅ Las cajas adicionales se registran automáticamente al conectarse
+• ✅ Requiere Windows 10 u 11 (64 bits)
 • ✅ Requiere .NET Framework 4.8 o superior
-
-───────────────────────────────────────────────────────────────
-🔑 CREDENCIALES POR DEFECTO
-───────────────────────────────────────────────────────────────
-
-   👤 Usuario: admin
-   🔑 Contraseña: admin123
 
 ───────────────────────────────────────────────────────────────
 🔄 PRÓXIMAS VERSIONES
 ───────────────────────────────────────────────────────────────
 
-• Módulo de compras con proveedores
-• Reportes avanzados de ventas
+• Checador de precios en POS Windows y cliente web
+• Sincronización de ajustes de inventario desde el móvil
+• Sincronización de compras desde el móvil
 • Integración con facturación CFDI
-• App móvil para consulta de inventario
-• Sincronización con tienda en línea
-
-───────────────────────────────────────────────────────────────
-📞 SOPORTE TÉCNICO
-───────────────────────────────────────────────────────────────
-
-   📧 Correo: soporte@latienditapos.com
-   🌐 Sitio web: www.latienditapos.com
+• Reportes avanzados de ventas
+• Mejoras en el módulo de compras con proveedores
 
 ═══════════════════════════════════════════════════════════════
               © 2026 - LaTienditaPOS - Todos los derechos reservados
