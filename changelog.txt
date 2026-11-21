@@ -2,96 +2,72 @@
 📋 LATIENDITAPOS - REGISTRO DE CAMBIOS (CHANGELOG)
 ═══════════════════════════════════════════════════════════════
 
-📌 VERSIÓN 1.0.0.0 (2026-10-30)
+📌 VERSIÓN 1.0.1.2 (2026-08-23)
 ───────────────────────────────────────────────────────────────
 ✅ NUEVAS FUNCIONALIDADES
 ───────────────────────────────────────────────────────────────
 
-• Arquitectura multicaja y multisucursal
-  - Cada caja se registra automáticamente la primera vez que se conecta
-  - Folios independientes por sucursal y caja
-  - Turnos de caja por sucursal
+• Sistema de permisos por roles completo
+  - 7 roles disponibles: SUPERADMIN, ADMIN, GERENTE, SUPERVISOR,
+    VENDEDOR, DEMO, ALMACENISTA
+  - Control granular por módulo y acción (Ver, Crear, Editar, Eliminar)
+  - Validación en tiempo real desde PermisosService
 
-• Punto de Venta móvil (PWA)
-  - Instalable en Android e iPhone
-  - Funciona offline con IndexedDB
-  - Catálogo local sincronizado desde la nube
-  - Búsqueda de productos por nombre o código de barras
-  - Pantalla de catálogo-venta con búsqueda en vivo
-  - Carrito de venta y cobro con múltiples métodos de pago
-  - Checador de precios con escáner de cámara
-  - Sincronización automática de catálogo (al abrir, al recuperar
-    conexión y cada 60 minutos)
-  - Aislamiento de catálogo local por negocio
-  - Ventas pendientes aisladas por negocio
+• Rol DEMO optimizado
+  - Acceso limitado a: Dashboard, Punto de Venta, Productos (consulta),
+    Pantalla Cliente, Imprimir Ticket
+  - Bloqueo automático de: Usuarios, Configuración, Etiquetas,
+    Impresión Masiva, Reportes, Cortes, Compras
 
-• Cola de tareas POS ↔ Nube
-  - El móvil encola ventas que el POS aplica automáticamente
-  - Confirmación y reporte de errores por tarea
-  - Reintentos automáticos
-  - Aplicación de ventas remotas en una sola transacción
-
-• Sincronización automática de catálogo
-  - El POS sube el catálogo completo a la nube tras cambios
-  - Modo full: borra huérfanos y deja solo lo actual
-  - La PWA lo descarga automáticamente
-  - Filtro de secretos en configuración antes de subir
-
-• Sistema de licencias con firma digital RSA
+• Sistema de licencias mejorado
+  - Licencia DEMO con 30 días exactos al activar
   - Importación de licencias mediante archivo .lic
-  - Vinculación por hardware ID
-  - Tipos de licencia: LOCAL, FULL, ENTERPRISE, DEMO
-  - Validación de firma criptográfica
+  - Validación de firma digital para seguridad
+  - Visualización de información de licencia en "Acerca de"
 
-• Sincronización de ventas con origen
-  - Cada venta se marca con origen: POS o MOVIL
-  - Distinción clara en reportes y consultas
+• Control de inventario global
+  - Activación/desactivación desde Configuración
+  - Control por categoría, marca y proveedor
 
-• Sincronización de productos
-  - Envío automático de productos nuevos y modificados
-  - Registro en bitácora de sincronización
+• Módulo de etiquetas mejorado
+  - Diseñador de etiquetas personalizado
+  - Soporte para múltiples tipos de código de barras
+  - Impresión masiva de etiquetas
+
+• Cambios de precio en lote
+  - Vista previa de cambios pendientes
+  - Banner de alerta en el menú principal
+  - Aplicación masiva de cambios
 
 ───────────────────────────────────────────────────────────────
 🔧 MEJORAS Y OPTIMIZACIONES
 ───────────────────────────────────────────────────────────────
 
-• Motor de base de datos migrado a MariaDB
-  - Mejor rendimiento en multicaja
-  - Soporte para conexiones concurrentes
-  - Respaldo y restauración mejorados
+• Autenticación de usuarios optimizada
+  - Hash de contraseñas unificado (C# ↔ SQLite)
+  - Mayor seguridad en el proceso de login
+  - Captura de hardware ID para licencias
 
-• Sistema de permisos por roles
-  - 7 roles: SUPERADMIN, ADMIN, GERENTE, SUPERVISOR,
-    VENDEDOR, DEMO, ALMACENISTA
-  - Control granular por módulo y acción
-
-• Rol DEMO optimizado
-  - Acceso limitado a módulos esenciales
-  - Bloqueo automático de funciones administrativas
+• Sistema de pedido sugerido mejorado
+  - Metas manuales de venta por producto
+  - Cálculo de tendencia y proyección de demanda
 
 • Dashboard mejorado
   - Indicadores KPI en tiempo real
   - Gráficos de ventas por hora y categoría
-  - Top de productos más vendidos
+  - Top 5 productos más vendidos
 
-• Control de inventario global
-  - Activación/desactivación desde configuración
-  - Control por categoría, marca y proveedor
-
-• Módulo de etiquetas mejorado
-  - Diseñador personalizado
-  - Soporte para múltiples tipos de código de barras
-  - Impresión masiva
-
-• Cambios de precio en lote
-  - Vista previa de cambios pendientes
-  - Banner de alerta en menú principal
-
-• Interfaz de usuario
+• Interfaz de usuario mejorada
   - Tema de colores personalizable
+  - Fondo de pantalla configurable
   - Logo de empresa dinámico
-  - Flujo de cobro optimizado
-  - Manejo mejorado con teclas de función
+  - Mejor experiencia de usuario
+
+• Sistema de configuración centralizado
+  - Configuración de impresora de tickets
+  - Configuración de impresora de etiquetas
+  - Configuración de Mercado Pago (Access Token, Terminal ID)
+  - Configuración de escáner serial
 
 ───────────────────────────────────────────────────────────────
 🐛 CORRECCIONES DE ERRORES
@@ -103,22 +79,17 @@
 • Corregido error en importación de inventario
 • Corregido error en exportación de reportes
 • Corregido error en diseño de etiquetas
-• Corregido error de permisos en formularios administrativos
-• Corregido duplicado de productos en catálogo del móvil
-• Corregido mezcla de catálogo entre negocios en la PWA
-• Corregido bucle infinito al descargar catálogo en la PWA
-• Corregido bug de paginación delta en descarga de catálogo
+• Corregido error de permisos en formularios (FrmUsuarios, FrmConfiguracion,
+  FrmImprimirEtiqueta, FrmImpresionMasiva)
 
 ───────────────────────────────────────────────────────────────
 📦 ACTUALIZACIONES TÉCNICAS
 ───────────────────────────────────────────────────────────────
 
-• Motor de base de datos: MariaDB
-• Plataforma: Windows 10 y Windows 11 (64 bits)
-• Requiere .NET Framework 4.8 o superior
-• Servidor de base de datos dedicado en tienda
-• Cliente POS conectado por red local
-• API en la nube para sincronización
+• Motor de base de datos: SQLite (embebido)
+• Plataforma de compilación optimizada (x86/x64)
+• Actualización de paquetes NuGet
+• Mejoras en rendimiento y estabilidad
 • Sistema de logs mejorado
 • Backup automático y manual
 
@@ -126,22 +97,68 @@
 📋 NOTAS DE INSTALACIÓN
 ───────────────────────────────────────────────────────────────
 
-• ✅ Requiere MariaDB instalado en el servidor de tienda
-• ✅ La base de datos se crea con el script de instalación
-• ✅ Las cajas adicionales se registran automáticamente al conectarse
-• ✅ Requiere Windows 10 u 11 (64 bits)
+• ✅ NO requiere SQL Server, MySQL u otro motor de BD
+• ✅ La base de datos SQLite se crea automáticamente
+• ✅ Compatible con Windows 10 y Windows 11 (64 bits)
 • ✅ Requiere .NET Framework 4.8 o superior
+
+───────────────────────────────────────────────────────────────
+🔑 CREDENCIALES POR DEFECTO
+───────────────────────────────────────────────────────────────
+
+   👤 Usuario: demo
+   🔑 Contraseña: 123456
 
 ───────────────────────────────────────────────────────────────
 🔄 PRÓXIMAS VERSIONES
 ───────────────────────────────────────────────────────────────
 
-• Checador de precios en POS Windows y cliente web
-• Sincronización de ajustes de inventario desde el móvil
-• Sincronización de compras desde el móvil
-• Integración con facturación CFDI
+• Módulo de compras con proveedores
 • Reportes avanzados de ventas
-• Mejoras en el módulo de compras con proveedores
+• Integración con facturación CFDI
+• App móvil para consulta de inventario
+• Sincronización con tienda en línea
+
+───────────────────────────────────────────────────────────────
+==============================================================================
+ACTUALIZACION 2026-11-20
+==============================================================================
+
+NUEVO: CONTROL DE LOTES Y CADUCIDADES
+   - Se marca producto por producto ("Maneja lote / caducidad").
+   - Captura de lote y caducidad en la recepcion de mercancia.
+   - Reporte "Lotes por Caducar" con semaforo y valor en riesgo.
+   - La venta descuenta del lote que caduca primero (FEFO), tanto en la
+     caja del servidor como en las cajas remotas.
+   - Las devoluciones regresan la pieza al lote original.
+   - Las mermas descuentan del lote que caduca primero.
+   - Al recibir una transferencia es OBLIGATORIO capturar lote y caducidad.
+
+NUEVO: EXPORTACION CONTABLE
+   - Genera polizas por dia: Ingresos, Costo, Compras, Gastos,
+     Devoluciones y Mermas.
+   - Configuracion de las 12 cuentas contables.
+   - Exportacion a CSV y a formato CONTPAQi (separador, fecha y orden de
+     campos configurables).
+   - Balanza de comprobacion del periodo.
+
+NUEVO: FACTURACION CFDI 4.0
+   - Datos fiscales del negocio y del cliente.
+   - Importacion y validacion del CSD (.cer + .key + contrasena).
+   - Configuracion del PAC.
+   - Generacion del XML CFDI 4.0 desde una venta.
+   - Consulta de facturas emitidas y guardado del XML.
+   - Cancelacion con la regla de la RMF 2026 (fecha limite por regimen).
+
+MEJORAS
+   - La base de datos se actualiza sola al arrancar.
+   - crear_bd.sql incluye todas las tablas nuevas para instalaciones nuevas.
+
+📞 SOPORTE TÉCNICO
+───────────────────────────────────────────────────────────────
+
+   📧 Correo: soporte@latienditapos.com
+   🌐 Sitio web: www.latienditapos.com
 
 ═══════════════════════════════════════════════════════════════
               © 2026 - LaTienditaPOS - Todos los derechos reservados
