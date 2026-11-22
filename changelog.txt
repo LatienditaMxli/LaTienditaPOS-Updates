@@ -2,7 +2,7 @@
 📋 LATIENDITAPOS - REGISTRO DE CAMBIOS (CHANGELOG)
 ═══════════════════════════════════════════════════════════════
 
-📌 VERSIÓN 1.0.0.4 (2026-08-23)
+📌 VERSIÓN 2.0.1.1 (2026-08-23)
 ───────────────────────────────────────────────────────────────
 ✅ NUEVAS FUNCIONALIDADES
 ───────────────────────────────────────────────────────────────
@@ -153,6 +153,39 @@ NUEVO: FACTURACION CFDI 4.0
 MEJORAS
    - La base de datos se actualiza sola al arrancar.
    - crear_bd.sql incluye todas las tablas nuevas para instalaciones nuevas.
+==============================================================================
+ACTUALIZACION 2026-11-21
+==============================================================================
+
+CORRECCIONES
+   - Reimprimir ticket: el boton junto a PAGAR no imprimia nada. Ahora, si
+     no hay venta en curso, imprime el ultimo ticket completado de esa caja.
+   - El menu "Configuracion" se ocultaba en la barra por exceso de menus de
+     primer nivel. Facturacion ahora esta dentro de Configuracion.
+
+NUEVO: DETECCION AUTOMATICA DE ACTUALIZACIONES
+   - Al abrir el POS se revisa si hay version nueva (en segundo plano).
+   - Si la hay, aparece un banner naranja: clic para instalar.
+   - La revision es silenciosa: sin internet no molesta.
+   - No se ofrece en modo demo ni con licencia vencida.
+   - Tambien se puede consultar a mano en Configuracion.
+
+NUEVO: BASCULA POR PUERTO SERIAL (OPCIONAL)
+   - Se configura en Configuracion -> pestana "Dispositivos".
+   - Soporta basculas con salida USB o RS-232 (Rhino BAR-8RS, Torrey,
+     Metrology...). Windows la reconoce como un puerto COM.
+   - Al vender un producto pesable el peso entra solo: el cajero confirma.
+   - Incluye boton de prueba que muestra la trama que manda la bascula.
+   - Si no hay bascula configurada, el POS funciona igual que siempre.
+
+ORGANIZACION DE LA CONFIGURACION (de 13 pestanas a 10)
+   - Pestana "Negocio": junta Datos del Negocio + Apariencia.
+   - Pestana "Dispositivos": junta Impresora + Etiquetas + Recibo +
+     Bascula + Escaner.
+   - Se retiro de la interfaz la configuracion del escaner por puerto
+     serial (nunca funciono; el escaner USB trabaja como teclado).
+
+
 
 📞 SOPORTE TÉCNICO
 ───────────────────────────────────────────────────────────────
